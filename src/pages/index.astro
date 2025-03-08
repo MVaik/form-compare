@@ -1,8 +1,13 @@
 ---
 import BasicRHF from "../components/react/BasicRHF";
 import Layout from "../layouts/Layout.astro";
+import ComparisonBlock from "../layouts/ComparisonBlock.astro";
+import BasicTForm from "../components/react/BasicTForm";
 ---
 
 <Layout>
-  <BasicRHF client:load />
+  <ComparisonBlock title="React">
+    <BasicRHF client:load />
+    <BasicTForm client:load />
+  </ComparisonBlock>
 </Layout>

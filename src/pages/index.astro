@@ -3,11 +3,15 @@ import BasicRHF from "../components/react/BasicRHF";
 import Layout from "../layouts/Layout.astro";
 import ComparisonBlock from "../layouts/ComparisonBlock.astro";
 import BasicTForm from "../components/react/BasicTForm";
+import { BasicAngularComponent } from "../components/angular/BasicAngular.component";
 ---
 
 <Layout>
   <ComparisonBlock title="React">
     <BasicRHF client:load />
     <BasicTForm client:load />
+  </ComparisonBlock>
+  <ComparisonBlock title="Angular">
+    <BasicAngularComponent client:load />
   </ComparisonBlock>
 </Layout>

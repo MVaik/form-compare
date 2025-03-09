@@ -1,9 +1,9 @@
-import { useForm } from "@tanstack/react-form";
 import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
+import { useAppForm } from "../../lib/tanstack.context";
 import { RenderCount } from "./RenderCount";
 
 const BasicTForm = () => {
-  const form = useForm({
+  const form = useAppForm({
     // Form type can be passed this way
     defaultValues: {
       name: "",
@@ -60,34 +60,10 @@ const BasicTForm = () => {
           </>
         )}
       </form.Field>
-      <form.Field name="description">
-        {(field) => (
-          <>
-            <div className="flex gap-2 items-center">
-              <label htmlFor={field.name}>Description</label>
-              <RenderCount />
-            </div>
-
-            <input
-              className="border-2"
-              id={field.name}
-              name={field.name}
-              value={field.state.value}
-              onBlur={field.handleBlur}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-            {field.state.meta.errors.length > 0 &&
-              field.state.meta.isTouched && (
-                <div className="text-red-600">
-                  {field.state.meta.errors.reduce(
-                    (acc, curr) => (acc += curr?.message),
-                    ""
-                  )}
-                </div>
-              )}
-          </>
-        )}
-      </form.Field>
+      <form.AppField
+        name="description"
+        children={(field) => <field.TFormInput label="Description" />}
+      />
       <form.Field name="bigL">
         {(field) => (
           <>

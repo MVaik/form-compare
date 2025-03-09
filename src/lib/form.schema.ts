@@ -1,9 +1,9 @@
 import { z } from "astro:schema";
 export const basicFormSchema = z.object({
-  projectName: z.string().nonempty(),
+  name: z.string().nonempty("Bruh ??"),
   description: z.string().optional(),
   bigL: z.boolean().refine((val) => val === true, {
-    message: "Never not L",
+    message: "Obv always big L",
   }),
 });
 

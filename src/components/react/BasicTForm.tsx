@@ -6,7 +6,7 @@ const BasicTForm = () => {
   const form = useForm({
     // Form type can be passed this way
     defaultValues: {
-      projectName: "",
+      name: "",
       description: "",
       bigL: false,
     } as ExpectedBasicForm,
@@ -27,16 +27,16 @@ const BasicTForm = () => {
         form.handleSubmit();
       }}
     >
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <h3>Tanstack form</h3>
         <RenderCount />
       </div>
       {/* Form fields are typed here */}
-      <form.Field name="projectName">
+      <form.Field name="name">
         {(field) => (
           <>
-            <div className="flex gap-2">
-              <label htmlFor={field.name}>Project name *</label>
+            <div className="flex gap-2 items-center">
+              <label htmlFor={field.name}>Name *</label>
               <RenderCount />
             </div>
             <input
@@ -50,7 +50,12 @@ const BasicTForm = () => {
             />
             {field.state.meta.errors.length > 0 &&
               field.state.meta.isTouched && (
-                <div className="text-red-600">Bruh ??</div>
+                <div className="text-red-600">
+                  {field.state.meta.errors.reduce(
+                    (acc, curr) => (acc += curr?.message),
+                    ""
+                  )}
+                </div>
               )}
           </>
         )}
@@ -58,7 +63,7 @@ const BasicTForm = () => {
       <form.Field name="description">
         {(field) => (
           <>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <label htmlFor={field.name}>Description</label>
               <RenderCount />
             </div>
@@ -73,7 +78,12 @@ const BasicTForm = () => {
             />
             {field.state.meta.errors.length > 0 &&
               field.state.meta.isTouched && (
-                <div className="text-red-600">Bruh ??</div>
+                <div className="text-red-600">
+                  {field.state.meta.errors.reduce(
+                    (acc, curr) => (acc += curr?.message),
+                    ""
+                  )}
+                </div>
               )}
           </>
         )}
@@ -81,7 +91,7 @@ const BasicTForm = () => {
       <form.Field name="bigL">
         {(field) => (
           <>
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <label className="flex gap-2" htmlFor={field.name}>
                 <input
                   className="border-2"
@@ -98,7 +108,12 @@ const BasicTForm = () => {
             </div>
             {field.state.meta.errors.length > 0 &&
               field.state.meta.isTouched && (
-                <div className="text-red-600">Obv always big L</div>
+                <div className="text-red-600">
+                  {field.state.meta.errors.reduce(
+                    (acc, curr) => (acc += curr?.message),
+                    ""
+                  )}
+                </div>
               )}
           </>
         )}

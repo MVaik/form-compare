@@ -20,25 +20,24 @@ import {
     <div class="flex gap-2 items-center">
       <h3>Angular Reactive Forms</h3>
     </div>
-    <label htmlFor="name">Name *</label>
-    <input class="border-2" id="name" formControlName="name" />
+    <label htmlFor="angular-name">Name *</label>
+    <input class="border-2" id="angular-name" formControlName="name" />
     @if (form.controls.name.touched && form.errors?.name) {
     <div class="text-red-600">{{ form.errors.name }}</div>
     }
 
-    <label htmlFor="description">Description</label>
-    <input class="border-2" id="description" formControlName="description" />
+    <label htmlFor="angular-description">Description</label>
+    <input
+      class="border-2"
+      id="angular-description"
+      formControlName="description"
+    />
     @if (form.controls.description?.touched && form.errors?.description) {
     <div class="text-red-600">{{ form.errors.description }}</div>
     }
 
-    <label class="flex gap-2" htmlFor="big-l">
-      <input
-        class="border-2"
-        id="big-l"
-        type="checkbox"
-        formControlName="bigL"
-      />
+    <label class="flex gap-2">
+      <input class="border-2" type="checkbox" formControlName="bigL" />
       Big L?
     </label>
     @if (form.controls.bigL?.touched && form.errors?.bigL) {

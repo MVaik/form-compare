@@ -36,12 +36,12 @@ const BasicTForm = () => {
         {(field) => (
           <>
             <div className="flex gap-2 items-center">
-              <label htmlFor={field.name}>Name *</label>
+              <label htmlFor={`tform-${field.name}`}>Name *</label>
               <RenderCount />
             </div>
             <input
               className="border-2"
-              id={field.name}
+              id={`tform-${field.name}`}
               name={field.name}
               value={field.state.value}
               onBlur={field.handleBlur}
@@ -68,10 +68,10 @@ const BasicTForm = () => {
         {(field) => (
           <>
             <div className="flex gap-2 items-center">
-              <label className="flex gap-2" htmlFor={field.name}>
+              <label className="flex gap-2" htmlFor={`tform-${field.name}`}>
                 <input
                   className="border-2"
-                  id={field.name}
+                  id={`tform-${field.name}`}
                   name={field.name}
                   type="checkbox"
                   checked={field.state.value}

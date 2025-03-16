@@ -6,13 +6,13 @@ const TFormInput = ({ label }: { label: string }) => {
   return (
     <>
       <div className="flex gap-2 items-center">
-        <label htmlFor={field.name}>{label}</label>
+        <label htmlFor={`tform-${field.name}`}>{label}</label>
         <RenderCount />
       </div>
 
       <input
         className="border-2"
-        id={field.name}
+        id={`tform-${field.name}`}
         name={field.name}
         value={field.state.value}
         onBlur={field.handleBlur}

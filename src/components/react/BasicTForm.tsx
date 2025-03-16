@@ -12,7 +12,7 @@ const BasicTForm = () => {
     } as ExpectedBasicForm,
     validators: {
       // Accepts schemas without a separate lib
-      onSubmit: basicFormSchema,
+      onBlur: basicFormSchema,
     },
     onSubmit: ({ value }) => {
       console.log(value);

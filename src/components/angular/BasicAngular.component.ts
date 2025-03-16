@@ -17,9 +17,7 @@ import {
     [formGroup]="form"
     (submit)="handleSubmit()"
   >
-    <div class="flex gap-2 items-center">
-      <h3>Angular Reactive Forms</h3>
-    </div>
+    <h3>Angular Reactive Forms</h3>
     <label htmlFor="angular-name">Name *</label>
     <input class="border-2" id="angular-name" formControlName="name" />
     @if (form.controls.name.touched && form.errors?.name) {
@@ -43,7 +41,9 @@ import {
     @if (form.controls.bigL?.touched && form.errors?.bigL) {
     <div class="text-red-600">{{ form.errors.bigL }}</div>
     }
-    <button class="border-2" type="submit">Submit</button>
+    <button class="border-2" type="submit" [disabled]="form.valid">
+      Submit
+    </button>
   </form> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],

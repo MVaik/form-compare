@@ -9,6 +9,7 @@ const BasicRHF = () => {
     resolver:
       // Needs a separate lib to resolve schema??
       zodResolver(basicFormSchema),
+    reValidateMode: "onBlur",
   });
   const onSubmit: SubmitHandler<ExpectedBasicForm> = (data) =>
     console.log(data);

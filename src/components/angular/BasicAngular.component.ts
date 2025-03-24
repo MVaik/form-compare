@@ -15,8 +15,7 @@ import {
   template: `<form
     class="flex flex-col gap-2 w-full"
     [formGroup]="form"
-    (submit)="handleSubmit()"
-  >
+    (submit)="handleSubmit()">
     <h3>Angular Reactive Forms</h3>
     <label htmlFor="angular-name">Name *</label>
     <input class="border-2" id="angular-name" formControlName="name" />
@@ -28,8 +27,7 @@ import {
     <input
       class="border-2"
       id="angular-description"
-      formControlName="description"
-    />
+      formControlName="description" />
     @if (form.controls.description?.touched && form.errors?.description) {
     <div class="text-red-600">{{ form.errors.description }}</div>
     }
@@ -49,12 +47,12 @@ import {
   imports: [ReactiveFormsModule],
 })
 export class BasicAngularComponent {
-  form = new FormGroup(
+  form = new FormGroup<AngularizedBasicForm>(
     {
-      name: new FormControl(""),
-      description: new FormControl(""),
-      bigL: new FormControl(false),
-    } as AngularizedBasicForm,
+      name: new FormControl("", { nonNullable: true }),
+      description: new FormControl(),
+      bigL: new FormControl(false, { nonNullable: true }),
+    },
     { validators: this.schemaValidator.bind(this) }
   );
 

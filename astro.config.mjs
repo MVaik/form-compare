@@ -5,13 +5,16 @@ import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
 
-import analogjsangular from "@analogjs/astro-angular";
+import angular from "@analogjs/astro-angular";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), analogjsangular()],
+  integrations: [react(), angular()],
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ["@tanstack/**"],
+    },
   },
 });

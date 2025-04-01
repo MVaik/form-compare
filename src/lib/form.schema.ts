@@ -6,6 +6,9 @@ export const basicFormSchema = z.object({
   bigL: z.boolean().refine((val) => val === true, {
     message: "Obv always big L",
   }),
+  losers: z
+    .object({ name: z.string().optional(), id: z.number().optional() })
+    .array(),
 });
 
 export type ExpectedBasicForm = z.infer<typeof basicFormSchema>;

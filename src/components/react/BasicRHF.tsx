@@ -1,4 +1,4 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useFieldArray, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
 import { RenderCount } from "./RenderCount";
@@ -10,6 +10,10 @@ const BasicRHF = () => {
       // Needs a separate lib to resolve schema??
       zodResolver(basicFormSchema),
     reValidateMode: "onBlur",
+  });
+  const { fields, append, remove } = useFieldArray<ExpectedBasicForm>({
+    control: methods.control,
+    name: "losers",
   });
   const onSubmit: SubmitHandler<ExpectedBasicForm> = (data) =>
     console.log(data);
@@ -46,6 +50,31 @@ const BasicRHF = () => {
           {methods.formState.errors?.bigL?.message}
         </div>
       )}
+
+      {fields.map((field, index) => (
+        <div className="flex gap-2 items-end" key={field.id}>
+          <RHFInput
+            name={`losers.${index}.name`}
+            label={`Loser ${index + 1}`}
+            methods={methods}
+          />
+          <button
+            className="ms-auto relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 p-3 px-6 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl before:absolute before:inset-0 before:bg-white before:opacity-10 before:blur-lg"
+            type="button"
+            onClick={() => remove(index)}
+          >
+            Delete
+          </button>
+        </div>
+      ))}
+
+      <button
+        className="border-2"
+        type="button"
+        onClick={() => append({ name: "" })}
+      >
+        Add loser
+      </button>
 
       <button className="border-2" type="submit">
         Submit

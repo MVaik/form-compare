@@ -4,7 +4,7 @@ import { RenderCount } from "./RenderCount";
 const TFormInput = ({ label }: { label: string }) => {
   const field = useFieldContext<string>();
   return (
-    <>
+    <div>
       <div className="flex gap-2 items-center">
         <label htmlFor={`tform-${field.name}`}>{label}</label>
         <RenderCount />
@@ -26,7 +26,7 @@ const TFormInput = ({ label }: { label: string }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

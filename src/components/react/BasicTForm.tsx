@@ -2,6 +2,8 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
 import { useAppForm } from "../../lib/tanstack.context";
 import { RenderCount } from "./RenderCount";
 
+let id = 0;
+
 const BasicTForm = () => {
   const form = useAppForm({
     // Form type can be passed this way
@@ -9,6 +11,7 @@ const BasicTForm = () => {
       name: "",
       description: "",
       bigL: false,
+      losers: [],
     } as ExpectedBasicForm,
     validators: {
       // Accepts schemas without a separate lib
@@ -91,6 +94,37 @@ const BasicTForm = () => {
                   )}
                 </div>
               )}
+          </>
+        )}
+      </form.Field>
+
+      <form.Field name="losers" mode="array">
+        {(fieldApi) => (
+          <>
+            {fieldApi.state.value.map((field, index) => (
+              <form.AppField name={`losers[${index}].name`} key={field.id}>
+                {(field) => (
+                  <div className="flex gap-2">
+                    <field.TFormInput label={`Loser ${index + 1}`} />
+                    <button
+                      className="ms-auto relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 p-3 px-6 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl before:absolute before:inset-0 before:bg-white before:opacity-10 before:blur-lg"
+                      type="button"
+                      onClick={() => fieldApi.removeValue(index)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </form.AppField>
+            ))}
+
+            <button
+              className="border-2"
+              type="button"
+              onClick={() => fieldApi.pushValue({ id: id++, name: "" })}
+            >
+              Add loser
+            </button>
           </>
         )}
       </form.Field>

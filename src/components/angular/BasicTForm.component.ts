@@ -1,17 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  Injector,
-  runInInjectionContext,
-} from "@angular/core";
+import { ChangeDetectorRef, Component, inject, Injector } from "@angular/core";
 import { injectForm, TanStackField } from "@tanstack/angular-form";
 import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
 @Component({
   selector: "basic-tform",
   template: `<form
     class="flex flex-col gap-2 w-full"
-    (submit)="handleSubmit($event)">
+    (submit)="handleSubmit($event)"
+  >
     <h3>Tanstack Form</h3>
     @if (form) {
 
@@ -23,7 +18,8 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
         [name]="name.api.name"
         [value]="name.api.state.value"
         (blur)="name.api.handleBlur()"
-        (input)="name.api.handleChange($any($event).target.value)" />
+        (input)="name.api.handleChange($any($event).target.value)"
+      />
       @if (name.api.state.meta.isTouched) {
       <div class="text-red-600">
         {{ getErrors(name.api.state.meta.errors) }}
@@ -33,7 +29,8 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
     <ng-container
       [tanstackField]="form"
       name="description"
-      #description="field">
+      #description="field"
+    >
       <label [for]="'angular-tform-' + description.api.name">Description</label>
       <input
         class="border-2"
@@ -41,7 +38,8 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
         [name]="description.api.name"
         [value]="description.api.state.value"
         (blur)="description.api.handleBlur()"
-        (input)="description.api.handleChange($any($event).target.value)" />
+        (input)="description.api.handleChange($any($event).target.value)"
+      />
     </ng-container>
     <ng-container [tanstackField]="form" name="bigL" #bigL="field">
       <label class="flex gap-2" [for]="'angular-tform-' + bigL.api.name">
@@ -52,7 +50,8 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
           [name]="bigL.api.name"
           [value]="bigL.api.state.value"
           (blur)="bigL.api.handleBlur()"
-          (change)="bigL.api.handleChange($any($event).target.checked)" />
+          (change)="bigL.api.handleChange($any($event).target.checked)"
+        />
         Big L?
       </label>
       @if (bigL.api.state.meta.isTouched) {
@@ -82,8 +81,6 @@ export class BasicTFormComponent {
     validators: {
       onBlur: basicFormSchema,
     },
-    // Forcing type to get at least some autocomplete
-    // TForm's inference down the drain...
   });
 
   async handleSubmit(event: SubmitEvent) {
@@ -95,28 +92,6 @@ export class BasicTFormComponent {
       this.cdr.detectChanges();
     }
   }
-
-  // Astro + analog = no injection context for tanstack form for some reason?
-  // ngAfterViewInit() {
-  //   runInInjectionContext(this.injector, () => {
-  //     this.form = injectForm({
-  //       defaultValues: {
-  //         name: "",
-  //         description: "",
-  //         bigL: false,
-  //       } as ExpectedBasicForm,
-  //       onSubmit({ value }) {
-  //         console.log(value);
-  //       },
-  //       validators: {
-  //         onBlur: basicFormSchema,
-  //       },
-  //       // Forcing type to get at least some autocomplete
-  //       // TForm's inference down the drain...
-  //     }) as unknown as ReturnType<typeof injectForm>;
-  //     this.cdr.detectChanges();
-  //   });
-  // }
 
   getErrors(errors: { message?: string }[]) {
     return errors.reduce((acc, curr) => (acc += curr?.message), "");

@@ -1,4 +1,4 @@
-import type { AbstractControl } from "@angular/forms";
+import type { AbstractControl, FormArray } from "@angular/forms";
 import { z } from "astro:schema";
 export const basicFormSchema = z.object({
   name: z.string().nonempty("Bruh ??"),
@@ -13,6 +13,10 @@ export const basicFormSchema = z.object({
 
 export type ExpectedBasicForm = z.infer<typeof basicFormSchema>;
 
-export type AngularizedBasicForm = {
-  [key in keyof ExpectedBasicForm]: AbstractControl<ExpectedBasicForm[key]>;
+export type AngularizeForm<Type extends Record<string, unknown>> = {
+  [key in keyof Type]: Type[key] extends (infer R)[]
+    ? FormArray<AbstractControl<R>>
+    : AbstractControl<Type[key]>;
 };
+
+export type AngularizedBasicForm = AngularizeForm<ExpectedBasicForm>;

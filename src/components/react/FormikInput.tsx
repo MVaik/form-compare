@@ -7,7 +7,7 @@ const FormikInput = ({ name, label }: { name: string; label: string }) => {
           <div className="flex gap-2 items-center">
             <label htmlFor={`formik-${name}`}>{label}</label>
           </div>
-          <input className="border-2" id={`formik-${name}`} {...field} />
+          <input className="border-2 w-full" id={`formik-${name}`} {...field} />
           {meta.touched && meta.error && (
             <div className="text-red-600">{meta.error}</div>
           )}

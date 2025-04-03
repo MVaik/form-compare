@@ -38,7 +38,7 @@ const BasicFormik = () => {
             <RenderCount />
           </div>
           <label htmlFor="formik-name">Name *</label>
-          <Field className="border-2" name="name" id="formik-name" />
+          <Field className="border-2 w-full" name="name" id="formik-name" />
           {touched?.name && errors?.name && (
             <div className="text-red-600">{errors?.name}</div>
           )}

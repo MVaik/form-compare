@@ -11,7 +11,7 @@ const TFormInput = ({ label }: { label: string }) => {
       </div>
 
       <input
-        className="border-2"
+        className="border-2 w-full"
         id={`tform-${field.name}`}
         name={field.name}
         value={field.state.value}

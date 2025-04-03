@@ -10,10 +10,12 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
     <h3>Tanstack Form</h3>
     @if (form) {
 
-    <ng-container [tanstackField]="form" name="name" #name="field">
-      <label [for]="'angular-tform-' + name.api.name">Name *</label>
+    <div [tanstackField]="form" name="name" #name="field">
+      <label class="block" [for]="'angular-tform-' + name.api.name"
+        >Name *</label
+      >
       <input
-        class="border-2"
+        class="border-2 w-full"
         [id]="'angular-tform-' + name.api.name"
         [name]="name.api.name"
         [value]="name.api.state.value"
@@ -25,24 +27,26 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
         {{ getErrors(name.api.state.meta.errors) }}
       </div>
       }
-    </ng-container>
-    <ng-container
-      [tanstackField]="form"
-      name="description"
-      #description="field"
-    >
-      <label [for]="'angular-tform-' + description.api.name">Description</label>
+    </div>
+    <div [tanstackField]="form" name="description" #description="field">
+      <label class="block" [for]="'angular-tform-' + description.api.name"
+        >Description</label
+      >
       <input
-        class="border-2"
+        class="border-2 w-full"
         [id]="'angular-tform-' + description.api.name"
         [name]="description.api.name"
         [value]="description.api.state.value"
         (blur)="description.api.handleBlur()"
         (input)="description.api.handleChange($any($event).target.value)"
       />
-    </ng-container>
-    <ng-container [tanstackField]="form" name="bigL" #bigL="field">
-      <label class="flex gap-2" [for]="'angular-tform-' + bigL.api.name">
+    </div>
+    <div [tanstackField]="form" name="bigL" #bigL="field">
+      <label
+        class="block"
+        class="flex gap-2"
+        [for]="'angular-tform-' + bigL.api.name"
+      >
         <input
           class="border-2"
           type="checkbox"
@@ -59,6 +63,45 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
         {{ getErrors(bigL.api.state.meta.errors) }}
       </div>
       }
+    </div>
+
+    <ng-container [tanstackField]="form" name="losers" #losers="field">
+      @for (_ of losers.api.state.value; track index; let index = $index) {
+      <ng-container
+        [tanstackField]="form"
+        [name]="getLoserName(index)"
+        #loser="field"
+      >
+        <div class="flex gap-2">
+          <div>
+            <label class="block" [attr.htmlFor]="'angular-tform-loser-' + index"
+              >Loser {{ index + 1 }}</label
+            >
+            <input
+              [value]="loser.api.state.value"
+              (blur)="loser.api.handleBlur()"
+              (change)="loser.api.handleChange($any($event).target.value)"
+              class="border-2"
+              [id]="'angular-tform-loser-' + index"
+            />
+          </div>
+          <button
+            class="ms-auto relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 p-3 px-6 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl before:absolute before:inset-0 before:bg-white before:opacity-10 before:blur-lg"
+            type="button"
+            (click)="losers.api.removeValue(index)"
+          >
+            Delete
+          </button>
+        </div>
+      </ng-container>
+      }
+      <button
+        class="border-2"
+        type="button"
+        (click)="losers.api.pushValue(defaultLoser)"
+      >
+        Add loser
+      </button>
     </ng-container>
     <button class="border-2" type="submit">Submit</button>
     }
@@ -74,6 +117,7 @@ export class BasicTFormComponent {
       name: "",
       description: "",
       bigL: false,
+      losers: [],
     } as ExpectedBasicForm,
     onSubmit({ value }) {
       console.log(value);
@@ -92,6 +136,12 @@ export class BasicTFormComponent {
       this.cdr.detectChanges();
     }
   }
+
+  defaultLoser = {
+    name: "",
+    id: 0,
+  };
+  getLoserName = (index: number) => `losers[${index}].name` as const;
 
   getErrors(errors: { message?: string }[]) {
     return errors.reduce((acc, curr) => (acc += curr?.message), "");

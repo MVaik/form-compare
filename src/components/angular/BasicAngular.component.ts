@@ -22,7 +22,7 @@ import {
     <h3>Angular Reactive Forms</h3>
     <div>
       <label class="block" htmlFor="angular-name">Name *</label>
-      <input class="border-2" id="angular-name" formControlName="name" />
+      <input class="border-2 w-full" id="angular-name" formControlName="name" />
       @if (form.controls.name.touched && form.errors?.name) {
       <div class="text-red-600">{{ form.errors.name }}</div>
       }
@@ -31,7 +31,7 @@ import {
     <div>
       <label class="block" htmlFor="angular-description">Description</label>
       <input
-        class="border-2"
+        class="border-2 w-full"
         id="angular-description"
         formControlName="description"
       />

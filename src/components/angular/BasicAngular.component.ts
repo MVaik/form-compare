@@ -76,6 +76,14 @@ import {
     <button class="border-2" type="button" (click)="addLoser()">
       Add loser
     </button>
+
+    @if (form.value.bigL) {
+    <p
+      class="text-2xl font-bold text-transparent bg-clip-text animate-gradient bg-linear-to-br from-purple-600 via-cyan-300 to-lime-400 bg-size-[50%_100%]"
+    >
+      Amazin conditional render
+    </p>
+    }
     <button
       class="border-2 disabled:bg-gradient-to-br"
       type="submit"
@@ -123,7 +131,6 @@ export class BasicAngularComponent {
     this.form.controls.losers.push(
       new FormGroup({
         name: new FormControl("", { nonNullable: true }),
-        id: new FormControl(0, { nonNullable: true }),
       })
     );
   }

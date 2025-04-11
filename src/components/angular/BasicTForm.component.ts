@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, inject, Injector } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Injector,
+} from "@angular/core";
 import { injectForm, TanStackField } from "@tanstack/angular-form";
 import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
 @Component({
@@ -103,10 +109,20 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
         Add loser
       </button>
     </ng-container>
+
+    @if (form.state.values.bigL) {
+    <p
+      class="text-2xl font-bold text-transparent bg-clip-text animate-gradient bg-linear-to-br from-purple-600 via-cyan-300 to-lime-400 bg-size-[50%_100%]"
+    >
+      Amazin conditional render
+    </p>
+    }
+
     <button class="border-2" type="submit">Submit</button>
     }
   </form> `,
   imports: [TanStackField],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class BasicTFormComponent {
@@ -128,6 +144,7 @@ export class BasicTFormComponent {
   });
 
   async handleSubmit(event: SubmitEvent) {
+    console.log(this.form);
     event.preventDefault();
     event.stopPropagation();
     if (this.form) {

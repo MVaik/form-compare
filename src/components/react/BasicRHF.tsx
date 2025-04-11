@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
 import { RenderCount } from "./RenderCount";
 import RHFInput from "./RHFInput";
+import RHFSubscribe from "./RHFSubscribe";
 
 const BasicRHF = () => {
   const methods = useForm<ExpectedBasicForm>({
@@ -75,7 +76,18 @@ const BasicRHF = () => {
       >
         Add loser
       </button>
-
+      <RHFSubscribe fieldsToWatch={["bigL"]} control={methods.control}>
+        {([bigLValue]) =>
+          bigLValue && (
+            <div className="flex gap-2 items-center">
+              <p className="text-2xl font-bold text-transparent bg-clip-text animate-gradient bg-linear-to-br from-purple-600 via-cyan-300 to-lime-400 bg-size-[50%_100%]">
+                Amazin conditional render
+              </p>
+              <RenderCount />
+            </div>
+          )
+        }
+      </RHFSubscribe>
       <button className="border-2" type="submit">
         Submit
       </button>

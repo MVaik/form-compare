@@ -15,7 +15,7 @@ const BasicTForm = () => {
     } as ExpectedBasicForm,
     validators: {
       // Accepts schemas without a separate lib
-      onBlur: basicFormSchema,
+      onSubmit: basicFormSchema,
     },
     onSubmit: ({ value }) => {
       console.log(value);
@@ -24,7 +24,7 @@ const BasicTForm = () => {
 
   return (
     <form
-      className="flex flex-col gap-2 w-2xs w-full"
+      className="flex flex-col gap-2 w-full"
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -128,6 +128,19 @@ const BasicTForm = () => {
           </>
         )}
       </form.Field>
+
+      <form.Subscribe selector={(state) => state.values.bigL}>
+        {(bigLValue) =>
+          bigLValue && (
+            <div className="flex gap-2 items-center">
+              <p className="text-2xl font-bold text-transparent bg-clip-text animate-gradient bg-linear-to-br from-purple-600 via-cyan-300 to-lime-400 bg-size-[50%_100%]">
+                Amazin conditional render
+              </p>
+              <RenderCount />
+            </div>
+          )
+        }
+      </form.Subscribe>
 
       <button className="border-2" type="submit">
         Submit

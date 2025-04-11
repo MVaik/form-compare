@@ -81,6 +81,15 @@ const BasicFormik = () => {
             )}
           </FieldArray>
 
+          {values.bigL && (
+            <div className="flex gap-2 items-center">
+              <p className="text-2xl font-bold text-transparent bg-clip-text animate-gradient bg-linear-to-br from-purple-600 via-cyan-300 to-lime-400 bg-size-[50%_100%]">
+                Amazin conditional render
+              </p>
+              <RenderCount />
+            </div>
+          )}
+
           <button className="border-2" type="submit">
             Submit
           </button>

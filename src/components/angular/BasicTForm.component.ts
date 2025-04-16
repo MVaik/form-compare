@@ -80,7 +80,7 @@ import { basicFormSchema, type ExpectedBasicForm } from "../../lib/form.schema";
       >
         <div class="flex gap-2">
           <div>
-            <label class="block" [attr.htmlFor]="'angular-tform-loser-' + index"
+            <label class="block" [attr.for]="'angular-tform-loser-' + index"
               >Loser {{ index + 1 }}</label
             >
             <input
